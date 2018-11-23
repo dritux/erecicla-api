@@ -1,0 +1,25 @@
+version: '3'
+services:
+  web:
+    build: .
+    command: python /app/app.py
+    ports:
+     - "5000:5000"
+    volumes:
+     - .:/app
+    links:
+      - db
+    hostname: ereciclar
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_USER=dumny
+      - MYSQL_PASSWORD=dumny
+      - MYSQL_DATABASE=ereciclar
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - ./.docker/db:/docker-entrypoint-initdb.d/:ro
+    hostname: ereciclar
+    restart: always
