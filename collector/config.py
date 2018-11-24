@@ -4,9 +4,8 @@ import os
 
 class Config(object):
     DEBUG = True if os.environ.get('DEBUG', None) else False
-
-    SECRET_KEY = 'p9Bv<3Eid9%$i01'
     SQLALCHEMY_DATABASE_URI = 'mysql://dumny:dumny@db/ereciclar'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class DevelopmentConfig(Config):

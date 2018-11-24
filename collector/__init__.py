@@ -14,6 +14,21 @@ def create_app():
     from collector.views.user import user
     app.register_blueprint(user)
 
+    from collector.views.location import location
+    app.register_blueprint(location)
+
+    from collector.views.collector import collector
+    app.register_blueprint(collector)
+
+    from collector.views.category import category
+    app.register_blueprint(category)
+
+    from collector.views.collection import collection
+    app.register_blueprint(collection)
+
+    from collector.views.request import request
+    app.register_blueprint(request)
+
     return app
 
 
