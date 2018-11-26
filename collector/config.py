@@ -3,29 +3,39 @@ import os
 
 
 class Config(object):
-    DEBUG = True if os.environ.get('DEBUG', None) else False
-    SQLALCHEMY_DATABASE_URI = 'mysql://dumny:dumny@db/ereciclar'
+    DEBUG = True if os.environ.get("DEBUG", None) else False
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class DevelopmentConfig(Config):
-    """
-    Development configurations
-    """
-
     DEBUG = True
     SQLALCHEMY_ECHO = True
+    SQLALCHEMY_DATABASE_URI = "mysql://dumny:dumny@db/ereciclar"
 
 
 class ProductionConfig(Config):
-    """
-    Production configurations
-    """
 
+    USER = ''
+    PASSWORD = ''
+    DATABASE = ''
+    CONNECTION_NAME = ''
+
+    SQLALCHEMY_DATABASE_URI = (
+        'mysql+pymysql://{user}:{password}@localhost/{database}'
+        '?unix_socket=/cloudsql/{connection_name}').format(
+            user=USER, password=PASSWORD,
+            database=DATABASE, connection_name=CONNECTION_NAME)
     DEBUG = False
 
 
-app_config = {
-    'development': DevelopmentConfig,
-    'production': ProductionConfig
+class TestingConfig(Config):
+    DEBUG = False
+
+
+config = {
+    "default": "collector.config.Config",
+    "development": "collector.config.DevelopmentConfig",
+    "production": "collector.config.ProductionConfig",
+    "testing": "collector.config.TestingConfig",
 }

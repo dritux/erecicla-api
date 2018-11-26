@@ -10,6 +10,8 @@ services:
     links:
       - db
     hostname: ereciclar
+     environment:
+    - DEBUG=1
   db:
     image: mysql:5.7
     ports:

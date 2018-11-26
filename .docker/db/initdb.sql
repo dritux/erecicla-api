@@ -189,6 +189,9 @@ START TRANSACTION;
 USE `ereciclar`;
 INSERT INTO `ereciclar`.`user` (`user_id`, `location_id`, `name`, `nickname`, `picture`, `phone`, `cellphone`, `email`, `personal_code`, `gender`, `birthday`, `create_at`, `update_at`) VALUES (1, 1, 'Adriano', 'Dri', 'face.gif', '+5511954976161', '+5511954976161', 'ditec@gmail.com', '30070470804', 'M', '08/09/1981', NULL, NULL);
 
+INSERT INTO `ereciclar`.`user` (`user_id`, `location_id`, `name`, `nickname`, `picture`, `phone`, `cellphone`, `email`, `personal_code`, `gender`, `birthday`, `create_at`, `update_at`) VALUES (2, 1, 'Joao', 'Joao', 'face.gif', '+5511973329589', '+5511973329589', 'ditux@gmail.com', '33070470504', 'M', '08/09/1981', NULL, NULL);
+
+
 COMMIT;
 
 

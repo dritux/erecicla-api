@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
+import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from collector.config import config
 
 
-def create_app():
+def create_app(settings_override={}):
     app = Flask(__name__)
 
-    app.config.from_object('collector.config.Config')
+    app_env = os.getenv('FLASK_ENV', 'default')
+
+    app.config.from_object(config[app_env])
 
     db.init_app(app)
 
