@@ -2,16 +2,20 @@ version: '3'
 services:
   web:
     build: .
-    command: python /app/app.py
+    command: python main.py
     ports:
-     - "5000:5000"
+     - "8080:8080"
     volumes:
      - .:/app
     links:
       - db
     hostname: ereciclar
-     environment:
-    - DEBUG=1
+    environment:
+      - DEBUG=1
+      - FLASK_ENV=development
+      - FLASK_APP=main.py
+    working_dir: /app
+
   db:
     image: mysql:5.7
     ports:
