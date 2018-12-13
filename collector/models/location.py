@@ -30,9 +30,7 @@ class Location(db.Model):
         additional,
         latitude,
         longitude,
-        type,
-        create_at,
-        update_at
+        type
     ):
         self.zipcode = zipcode
         self.street = street
@@ -44,8 +42,6 @@ class Location(db.Model):
         self.latitude = latitude
         self.longitude = longitude
         self.type = type
-        self.create_at = create_at
-        self.update_at = update_at
 
     def __repr__(self):
         return '<Location %r>' % self.street
@@ -54,6 +50,7 @@ class Location(db.Model):
 class LocationSchema(ma.Schema):
     class Meta:
         fields = (
+            'location_id',
             'zipcode',
             'street',
             'number',
