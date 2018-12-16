@@ -1,4 +1,5 @@
 from collector import db, ma
+from .location import LocationSchema
 
 
 class User(db.Model):
@@ -6,7 +7,7 @@ class User(db.Model):
     __tablename__ = 'user'
 
     user_id = db.Column(db.Integer, primary_key=True)
-    location_id = db.Column(db.Integer, unique=True)
+    location_id = db.Column(db.Integer, db.ForeignKey('location.location_id'))
     name = db.Column(db.String(255), unique=False)
     nickname = db.Column(db.String(45), unique=False)
     picture = db.Column(db.String(255), unique=False)
@@ -18,6 +19,7 @@ class User(db.Model):
     birthday = db.Column(db.String(10), unique=False)
     create_at = db.Column(db.DateTime())
     update_at = db.Column(db.DateTime())
+    location = db.relationship('Location', backref='user')
 
     def __init__(
         self,
@@ -51,22 +53,12 @@ class User(db.Model):
         db.session.commit()
 
 
-class UserSchema(ma.Schema):
+class UserSchema(ma.ModelSchema):
+    location = ma.Nested(LocationSchema, many=True)
+
     class Meta:
-        fields = (
-            'name',
-            'location_id',
-            'nickname',
-            'picture',
-            'phone',
-            'cellphone',
-            'email',
-            'personal_code',
-            'gender',
-            'birthday',
-            'create_at',
-            'update_at'
-        )
+        model = User
+        fields = ('location_id', 'name', 'email')
 
 
 user_schema = UserSchema()

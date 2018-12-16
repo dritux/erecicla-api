@@ -1,4 +1,5 @@
-from collector import db, ma
+from collector import db
+from marshmallow_sqlalchemy import ModelSchema
 
 
 class Location(db.Model):
@@ -47,7 +48,9 @@ class Location(db.Model):
         return '<Location %r>' % self.street
 
 
-class LocationSchema(ma.Schema):
+class LocationSchema(ModelSchema):
+    model = Location
+
     class Meta:
         fields = (
             'location_id',

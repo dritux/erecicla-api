@@ -7,3 +7,4 @@ Flask==1.0.2
 Flask-Script==2.0.6
 Flask-Marshmallow==0.9.0
 Flask-SQLAlchemy==2.3.2
+Marshmallow-Sqlalchemy==0.15.0

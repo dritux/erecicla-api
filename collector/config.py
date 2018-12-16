@@ -30,7 +30,9 @@ class ProductionConfig(Config):
 
 
 class TestingConfig(Config):
-    DEBUG = False
+    DEBUG = True
+    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_DATABASE_URI = "mysql://dumny:dumny@0.0.0.0/ereciclar"
 
 
 config = {

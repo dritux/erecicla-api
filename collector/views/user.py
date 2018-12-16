@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from collector.models import User, Location, users_schema, user_schema
+from collector.models import User, Location, users_schema, location_schema
 from collector import db
 
 user = Blueprint('user', __name__, url_prefix='')
@@ -7,9 +7,22 @@ user = Blueprint('user', __name__, url_prefix='')
 
 @user.route("/user", methods=['GET'])
 def get():
-    all_users = User.query.all()
-    result = users_schema.dump(all_users)
-    return jsonify(result.data)
+    users = User.query.all()
+    location = Location.query.all()
+
+    response = jsonify(
+        user=users_schema.dump(users, many=True),
+        location=location_schema.dump(location, many=True)
+    )
+    '''
+        users = users_schema.dump(
+            User.query.filter(1==1).options(
+                joinedload('location')
+            ).all()
+        ).data
+        response = jsonify(users)
+    '''
+    return response
 
 
 @user.route('/user', methods=['POST'])
@@ -47,6 +60,7 @@ def create():
         type
     )
     db.session.add(location)
+    db.session.commit()
 
     user = User(
         location.location_id,
